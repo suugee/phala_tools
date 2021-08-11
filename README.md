@@ -6,7 +6,7 @@
 
 ```
 cd ~
-wget -O wbr_pha.sh https://raw.githubusercontent.com/runbzz/phala/main/wbr_pha.sh && sudo chmod +x ./wbr_pha.sh && sudo ./wbr_pha.sh
+wget -O wbr_khala.sh https://raw.githubusercontent.com/suugee/tools/main/phala/wbr_khala.sh && sudo chmod +x ./wbr_khala.sh && sudo ./wbr_khala.sh
 ```
 ## 挖币人 PHA 质押计算器
 ```
