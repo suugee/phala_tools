@@ -1,2 +1,18 @@
-# tools
-Some convenient tools
+# Tools
+分享一些快捷脚本，方便小白部署项目。
+
+
+## 挖币人 Khala POC5测试网一键便捷脚本
+
+```
+cd ~
+wget -O wbr_pha.sh https://raw.githubusercontent.com/runbzz/phala/main/wbr_pha.sh && sudo chmod +x ./wbr_pha.sh && sudo ./wbr_pha.sh
+```
+## 挖币人 PHA 质押计算器
+```
+http://www.wabiren.com/tools/cost.php
+```
+## 挖币人 PHA V值和满V质押计算器
+```
+http://www.wabiren.com/tools/zhiya_new.php
+```
