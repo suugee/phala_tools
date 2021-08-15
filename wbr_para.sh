@@ -1,15 +1,15 @@
 #!/bin/bash
 
 download_phala(){
-sudo apt-get -y install wget && apt-get -y install unzip && wget https://github.com/Phala-Network/solo-mining-scripts/archive/poc5.zip && unzip poc5.zip
+sudo apt-get -y install wget && apt-get -y install unzip && wget https://github.com/Phala-Network/solo-mining-scripts/archive/refs/heads/para.zip && unzip para.zip
 }
 
 sgx_enable(){
-cd ~/solo-mining-scripts-poc5 && sudo chmod +x sgx_enable && sudo ./sgx_enable
+cd ~/solo-mining-scripts-para && sudo chmod +x sgx_enable && sudo ./sgx_enable
 }
 
 install_phala(){
-cd ~/solo-mining-scripts-poc5 && sudo chmod +x install.sh && sudo ./install.sh cn && sudo phala install
+cd ~/solo-mining-scripts-para && sudo chmod +x install.sh && sudo ./install.sh cn && sudo phala install
 }
 
 set_phala(){
