@@ -1,22 +1,5 @@
 #!/bin/bash
 
-#color
-red='\e[91m'
-green='\e[92m'
-yellow='\e[93m'
-magenta='\e[95m'
-cyan='\e[96m'
-none='\e[0m'
-
-#prefix
-info="${green}[信息]${none}"
-error="${red}[错误]${none}"
-
-#show
-show_error(){
-  echo -e "${Error}" "$1"
-}
-
 ###变量定义###
 github_cn="github.phala.one"
 sgx_cn="sgx.phala.one"
