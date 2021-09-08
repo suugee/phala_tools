@@ -1,18 +1,35 @@
 #!/bin/bash
 
+#color
+red='\e[91m'
+green='\e[92m'
+yellow='\e[93m'
+magenta='\e[95m'
+cyan='\e[96m'
+none='\e[0m'
+
+#prefix
+info="${green}[信息]${none}"
+error="${red}[错误]${none}"
+
+#show
+show_error(){
+  echo -e "${Error}" "$1"
+}
+
 ###变量定义###
 github_cn="github.phala.one"
 sgx_cn="sgx.phala.one"
 node_cn="node.phala.one"
 
 sh_url="https://sh.phala.one/phala_Xtools.sh"
-script_url="https://$github_cn/Phala-Network/solo-mining-scripts/archive/para.zip"
+script_url="https://$github_cn/Phala-Network/solo-mining-scripts/archive/main.zip"
 docker_cn="curl -sSL https://get.daocloud.io/docker | sh"
 
 
 ###1.下载Phala脚本
 download_phala(){
-cd ${HOME}/ && sudo apt-get -y install wget && apt-get -y install unzip && wget -O para.zip ${script_url} && unzip para.zip && cd ${HOME}/solo-mining-scripts-para/ && sudo chmod +x install.sh && sudo ./install.sh cn
+cd ${HOME}/ && sudo apt-get -y install wget && apt-get -y install unzip && wget -O para.zip ${script_url} && unzip para.zip && cd ${HOME}/solo-mining-scripts-main/ && sudo chmod +x install.sh && sudo ./install.sh cn
 }
 
 ###2.检测系统环境
@@ -21,25 +38,12 @@ board=`sudo dmidecode | grep 'Product Name'`
 cpu=`sudo dmidecode  | grep CPU`
 echo $board
 echo $cpu
-
-kenel1=`uname -r`
-kenel2="5.11.0"
-kenelresult=$(echo "$kenel1" | grep "$kenel2")
-
-check_sgx
-
-if [[ "kenelresult" != "" ]]
-    then
-    echo "---您的内核版本大于5.10，内核版本过高，请降低内核版本！---"
-fi
-
-
 }
 
 ###检查SGX是否启动
 check_sgx() {
 #  echo "使用sgx_enable激活SGX功能"
-  cd ${HOME}/solo-mining-scripts-para
+  cd ${HOME}/solo-mining-scripts-main
   sudo chmod +x sgx_enable
   res=`sudo ./sgx_enable`
   res2="is already enabled"
@@ -49,11 +53,7 @@ check_sgx() {
   if [[ "$result" != "" ]]
   then
     echo "---SGX已经开启---"
-    echo "开始安装Phala工具"
-    sudo chmod +x install.sh
-    sudo ./install.sh cn
-    echo "安装Phala脚本"
-    sudo phala install
+    echo "输入3开始安装Phala"
 	if [[ "$result2" != "" ]]
 		then
 		echo "请重启服务器：sudo reboot"
@@ -122,7 +122,7 @@ set_khala_node(){
 		if [[ $knode_dir =~ \ |\' ]]; then
 			printf "数据存储位置不能包含空格，请重新输入!\n"
 		else
-		    sed -i "22c docker run -dti --rm --name khala-node -e NODE_NAME=\$node_name -e NODE_ROLE=MINER -p 40333:30333 -p 40334:30334 -v $knode_dir:/root/data phalanetwork/khala-node" /opt/phala/scripts/start.sh
+		    sed -i "30c docker run -dti --rm --name khala-node -e NODE_NAME=\$node_name -e NODE_ROLE=MINER -p 40333:30333 -p 40334:30334 -v $knode_dir:/root/data phalanetwork/khala-node" /opt/phala/scripts/start.sh
 			break
 		fi
 	done
@@ -167,7 +167,7 @@ echo -e "\033[34m正在替换docker镜像源\033[0m"
 sed -i "21,24d" $scriptdir/install_phala.sh
 sed -i "/docker)/a$docker_cn" $scriptdir/install_phala.sh
 #   sed -i "s/download.docker.com/$docker_cn/g" $scriptdir/install_phala.sh
-echo -e "\033[41;33m已经替换完成，愉快地安装吧\033[0m"
+echo -e "\033[41;33m已经替换完成,愉快地安装吧~\033[0m"
 }
 
 
@@ -179,6 +179,10 @@ echo -e "\033[31m编写中\033[0m"
 ###88.卸载Phala程序
 uninstall_phala(){
 sudo phala uninstall
+sudo rm -R ~/solo-mining-scripts-para
+sudo rm -R ~/solo-mining-scripts-main
+sudo rm ~/main.zip
+sudo rm ~/para.zip
 }
 
 ###66.更新phala_Xtools脚本
